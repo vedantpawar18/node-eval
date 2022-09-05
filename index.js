@@ -45,16 +45,13 @@ app.get("/products", (req,res)=>{
 app.put("/products", (req,res)=>{
     const data=fs.readFileSync("./products.json", {encoding:"utf-8"})
     const parsedData = JSON.parse(data)
-    // const products= parsedData.products
-   
     const product= parsedData.find(item => item.id === req.body.id);
     const index = parsedData.indexOf(product);
     console.log(index)
-    products[index] = req.body;
-    const latest_data= JSON.stringify(products)
+    parsedData[index] = req.body;
+    const latest_data= JSON.stringify(parsedData)
     fs.writeFileSync("./products.json", latest_data, "utf-8")
     res.send("product updated")
-    // console.log(index)
 })
 
 
